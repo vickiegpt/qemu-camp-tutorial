@@ -65,7 +65,7 @@ typedef struct GPGPULane {
 #define F_E2M1(i)   (l->fpr[ctx->i].e2m1)
 ```
 
-接下来简化上下文。整数指令和浮点数指令的上下文分开来，另外增加一个最简单的上下文，用于处理最特殊的情况。
+接下来简化上下文。整数指令和浮点数指令的上下文分开来，特殊情况直接绕开宏写完整函数。
 
 ```c
 /* ============== Context ================= */
@@ -90,12 +90,6 @@ typedef struct GPGPULane {
     int32_t imm = ctx->imm; \
     int32_t rd = ctx->rd; \
     (void)src1; (void)src2; (void)src3; (void)imm; (void)rd;
-
-/* minimum context for special inst */
-#define INIT_LANE_CONTEXT_NO() \
-    GPGPULane *l = &ctx->warp->lanes[lane_id]; \
-    int32_t imm = ctx->imm; \
-    (void)imm;
 
 /* 判断 pc 是否跳转 */
 #define FINISH_LANE_CONTEXT() \
@@ -135,14 +129,6 @@ typedef struct GPGPULane {
             uint8_t __fflags = l->fp_status.float_exception_flags & 0x1F; \
             l->fcsr = (l->fcsr & ~0x1F) | __fflags; \
         } while(0); \
-        FINISH_LANE_CONTEXT(); \
-    }
-
-/* for special inst */
-#define EXEC_FUNC_NO(name, code) \
-    static void __attribute__((unused)) exec_##name(exec_ctx_t *ctx, int lane_id) { \
-        INIT_LANE_CONTEXT_NO(); \
-        code \
         FINISH_LANE_CONTEXT(); \
     }
 ```
