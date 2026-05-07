@@ -157,6 +157,15 @@ riscv64-linux-gnu-ld -T kernel.ld maxpool.o -o maxpool.elf
 riscv64-linux-gnu-objcopy -O binary maxpool.elf maxpool.bin
 ```
 
+kernel.ld 是链接脚本。在链接脚本中强制指定生成 32 位 elf 文件。
+
+```text
+OUTPUT_FORMAT("elf32-littleriscv", "elf32-littleriscv", "elf32-littleriscv")
+OUTPUT_ARCH(riscv)
+```
+
+还有一种方式是在链接选项里显式添加 `-m elf32lriscv`，这样也可以。
+
 设备尚未被 qtest 覆盖的部分有可能存在 bug，为了快速定位 bug，我建立了一个三级的日志体系，便于快速追踪 bug 的位置：
 
 !!! note "日志系统"
