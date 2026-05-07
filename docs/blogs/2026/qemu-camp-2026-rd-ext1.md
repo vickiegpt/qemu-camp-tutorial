@@ -19,19 +19,19 @@ typedef union {
     float f32;
     struct {
         uint32_t : 16;
-        uint16_t bf16;
+        uint32_t bf16 : 16;
     };
     struct {
         uint32_t : 24;
-        uint8_t e4m3;
+        uint32_t e4m3 : 8;
     };
     struct {
         uint32_t : 24;
-        uint8_t e5m2;
+        uint32_t e5m2 : 8;
     };
     struct {
         uint32_t : 28;
-        uint8_t e2m1;
+        uint32_t e2m1 : 4;
     };
 } GPURegister;
 
