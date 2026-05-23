@@ -1,10 +1,10 @@
 #   背景介绍
 
-  我是一名电子信息专业的学生，对计算机体系结构有兴趣，之前学XV6课程的时候接触到了QEMU,但是一直停留在最基础的使用阶段，看到 QEMU训练营的招募后，我觉得这是一个难得的动手机会，于是报名参加了 GPGPU 方向的实验。
+  我是一名电子信息专业的学生，对计算机体系结构有兴趣，之前学 XV6 课程的时候接触到了 QEMU，但是一直停留在最基础的使用阶段，看到 QEMU 训练营的招募后，我觉得这是一个难得的动手机会，于是报名参加了 GPGPU 方向的实验。
 
 #   专业阶段
 
-我选择了 GPGPU设备建模 方向。实验任务是实现一个教育用途的 GPU 设备模型，通过 QTest 框架的 17个测题来验证正确性。
+我选择了 GPGPU 设备建模 方向。实验任务是实现一个教育用途的 GPU 设备模型，通过 QTest 框架的 17 个测题来验证正确性。
 
   GPGPU 是一个 PCIe 设备，核心数据结构是 GPGPUState：
 
@@ -42,7 +42,7 @@ while (lane->active && cycles < max_cycles) {
 
   线程通过 mhartid CSR 获取自己的三维 ID：
 
-  mhartid 位域:  [31:13] block_id   [12:5] warp_id   [4:0] lane_id
+  mhartid 位域： [31:13] block_id   [12:5] warp_id   [4:0] lane_id
 
   这相当于 CUDA 的 threadIdx + blockIdx 被编码进一个硬件寄存器，内核代码通过一条 csrrs 指令就能拿到自己的完整身份。
 
